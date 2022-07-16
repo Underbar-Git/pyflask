@@ -1,3 +1,4 @@
+from wsgiref.handlers import format_date_time
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -17,9 +18,14 @@ def create_app():
     from . import models
 
     # blueprint
-    from .views import main_views, question_views, answer_views
+    from .views import main_views, question_views, answer_views, auth_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
+    app.register_blueprint(auth_views.bp)
+
+    # filter
+    from .filter import format_datetime
+    app.jinja_env.filters['datetime'] = format_datetime
 
     return app
