@@ -12,6 +12,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
 
+    app.config['UPLOAD_FOLDER'] = config.BASE_DIR + '/static/upload_files'
+
     # ORM 
     db.init_app(app)
     migrate.init_app(app, db)
